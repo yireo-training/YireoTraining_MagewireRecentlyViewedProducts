@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block name="magewire_recently_viewed_products" template="YireoTraining_MagewireRecentlyViewedProducts::products.phtml" before="-">
+                <arguments>
+                    <argument name="magewire" xsi:type="object">YireoTraining\MagewireRecentlyViewedProducts\Magewire\RecentlyViewedProducts</argument>
+                </arguments>
+            </block>
+
+            <block name="magewire_recently_viewed_products_script" template="YireoTraining_MagewireRecentlyViewedProducts::luma_script.phtml">
+                <arguments>
+                    <argument name="magewire_component_name" xsi:type="string">magewire_recently_viewed_products</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

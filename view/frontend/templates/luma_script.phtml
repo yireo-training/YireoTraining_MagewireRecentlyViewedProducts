@@ -1,0 +1,31 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+$componentName = $block->getMagewireComponentName();
+?>
+<script>
+    require(['magewire', 'magewireEvent'], function (livewire) {
+        window.Livewire.hook('element.initialized', function (element, component) {
+            if (component.id !== '<?= $componentName ?>') {
+                return;
+            }
+
+            const recentlyViewedProductsJson = localStorage.getItem('recently_viewed_product');
+            if (!recentlyViewedProductsJson) {
+                return;
+            }
+
+            const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJson);
+            const recentlyViewedProductIds = [];
+            Object.keys(recentlyViewedProducts).forEach((key, index) => {
+                const recentlyViewedProduct = recentlyViewedProducts[key];
+                recentlyViewedProductIds.push(recentlyViewedProduct.product_id);
+            });
+
+            window.Magewire.emitTo('<?= $componentName ?>', 'setProductIds', {productIds: recentlyViewedProductIds})
+        });
+    });
+</script>

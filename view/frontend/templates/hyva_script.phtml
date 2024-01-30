@@ -1,0 +1,26 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+
+/** @var Template $block */
+$componentName = $block->getMagewireComponentName();
+?>
+<script>
+    document.addEventListener('magewire:load', () => {
+        const recentlyViewedProductsJson = localStorage.getItem('recently_viewed_products');
+        if (recentlyViewedProductsJson) {
+            const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJson);
+            const recentlyViewedProductIds = [];
+            recentlyViewedProducts.forEach(recentlyViewedProduct => {
+                recentlyViewedProductIds.push(recentlyViewedProduct.id);
+            });
+
+            Magewire.emitTo('<?= $componentName ?>', 'setProductIds', {productIds: recentlyViewedProductIds});
+        }
+    });
+
+    const removeFromLocalStorage = function(productId) {
+        console.log('Do your thing, frontenders', productId);
+    }
+</script>

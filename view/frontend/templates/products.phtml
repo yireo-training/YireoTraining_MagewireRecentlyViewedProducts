@@ -1,0 +1,20 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+use YireoTraining\MagewireRecentlyViewedProducts\Magewire\RecentlyViewedProducts;
+
+/** @var RecentlyViewedProducts $magewire */
+/** @var Template $block */
+?>
+<div>
+    <h3>Recently Viewed Products</h3>
+    <pre><?= implode(', ', $magewire->productIds) ?></pre>
+    <?= count($magewire->products) ?>
+    <?php if (count($magewire->products) > 0) : ?>
+    <?php foreach($magewire->products as $product): ?>
+        <?= $product->getName() ?>
+        <button onClick="removeFromLocalStorage(<?= $product->getId() ?>)">Remove</button>
+    <?php endforeach; ?>
+    <?php endif; ?>
+</div>
